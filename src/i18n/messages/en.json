@@ -39,7 +39,17 @@
     "rooms": "Rooms",
     "cabins": "Booths",
     "note": "no contracts",
-    "browse": "Browse"
+    "browse": "Browse",
+    "location": {
+      "title": "Find us",
+      "accent": "in Barranquilla",
+      "address": "Carrera 53 #90-40",
+      "city": "Barranquilla, Atlántico",
+      "hours": "Every day · 07:00 to 21:00",
+      "directions": "Get directions",
+      "note": "we're here!",
+      "mapTitle": "Map of the CoSpace location in Barranquilla"
+    }
   },
   "catalog": {
     "title": "Spaces",
