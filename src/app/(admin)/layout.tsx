@@ -10,7 +10,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     <div className="flex flex-1 flex-col md:flex-row">
       <aside className="flex items-center gap-5 px-5 py-4 md:w-56 md:flex-col md:items-start md:py-6">
         <Logo />
-        <span className="rounded-full bg-pink px-2.5 py-0.5 font-mono text-[11px] uppercase text-on-pastel">
+        <span className="rounded-full bg-pink px-2.5 py-0.5 font-label text-[11px] uppercase text-on-pastel">
           admin
         </span>
         <nav className="flex gap-4 text-sm md:mt-4 md:flex-col">
