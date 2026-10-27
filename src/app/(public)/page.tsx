@@ -4,19 +4,14 @@ import { getSpaces } from "@/mocks/spaces";
 import type { SpaceType } from "@/types/api";
 
 // SSG: sin datos por petición, la página se genera en el build.
-const typeLabels: Record<SpaceType, string> = {
-  desk: "Escritorios",
-  meeting_room: "Salas",
-  cabin: "Cabinas",
-};
+const types: readonly SpaceType[] = ["desk", "meeting_room", "cabin"];
 
 export default async function HomePage() {
   const spaces = await getSpaces();
   const minPrice = Math.min(...spaces.map((space) => space.pricePerHour));
 
-  const stats: TypeStat[] = (Object.keys(typeLabels) as SpaceType[]).map((type) => ({
+  const stats: TypeStat[] = types.map((type) => ({
     type,
-    label: typeLabels[type],
     count: spaces.filter((space) => space.type === type).length,
   }));
 

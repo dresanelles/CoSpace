@@ -1,17 +1,22 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { LoginForm } from "@/components/auth/login-form";
 
 export default function LoginPage() {
+  const t = useTranslations("auth");
+
   return (
     <div className="flex flex-col gap-5">
       <h1 className="display text-4xl">
-        Ingresar <span className="accent">ya</span>
+        {t("loginTitle")} <span className="accent">{t("loginAccent")}</span>
       </h1>
       <LoginForm />
       <p className="text-sm text-mute">
-        ¿No tienes cuenta?{" "}
+        {t("noAccount")}{" "}
         <Link href="/register" className="font-semibold text-ink underline underline-offset-4">
-          Crea una
+          {t("createOne")}
         </Link>
       </p>
     </div>

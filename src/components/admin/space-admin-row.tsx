@@ -1,10 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState } from "react";
 import { Button, buttonClasses } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
-import { formatPrice, typeColor, typeLabel } from "@/components/ui/space-card";
+import { formatPrice, typeColor } from "@/components/ui/space-meta";
 import { Tag } from "@/components/ui/tag";
 import { cn } from "@/lib/cn";
 import type { SpaceDTO } from "@/types/api";
@@ -15,6 +16,7 @@ interface SpaceAdminRowProps {
 }
 
 export function SpaceAdminRow({ space, onDeactivate }: SpaceAdminRowProps) {
+  const t = useTranslations();
   const [confirming, setConfirming] = useState<boolean>(false);
   const [pending, setPending] = useState<boolean>(false);
 
@@ -36,11 +38,11 @@ export function SpaceAdminRow({ space, onDeactivate }: SpaceAdminRowProps) {
       <div className={cn(!space.isActive && "text-mute")}>
         <p className="font-bold">{space.name}</p>
         <p className="mt-0.5 font-label text-sm text-mute">
-          {space.capacity} {space.capacity === 1 ? "persona" : "personas"} · {formatPrice(space.pricePerHour)}/h
+          {t("common.people", { count: space.capacity })} · {t("common.perHour", { price: formatPrice(space.pricePerHour) })}
         </p>
       </div>
       <div className="col-start-2 md:col-start-auto">
-        <Tag className={cn(typeColor[space.type], "text-on-pastel")}>{typeLabel[space.type]}</Tag>
+        <Tag className={cn(typeColor[space.type], "text-on-pastel")}>{t(`spaceType.${space.type}`)}</Tag>
       </div>
       <span
         className={cn(
@@ -48,26 +50,26 @@ export function SpaceAdminRow({ space, onDeactivate }: SpaceAdminRowProps) {
           space.isActive ? "bg-lime text-on-pastel" : "bg-ink/10 text-mute line-through",
         )}
       >
-        {space.isActive ? "Activo" : "Inactivo"}
+        {space.isActive ? t("admin.active") : t("admin.inactive")}
       </span>
       <div className="col-span-2 flex items-center gap-2 md:col-span-1 md:justify-end">
         {confirming ? (
           <>
             <Button size="sm" disabled={pending} onClick={confirmDeactivate}>
-              {pending ? "Desactivando…" : "Sí, desactivar"}
+              {pending ? t("admin.deactivating") : t("admin.confirmDeactivate")}
             </Button>
             <Button size="sm" variant="outline" disabled={pending} onClick={() => setConfirming(false)}>
-              No
+              {t("admin.no")}
             </Button>
           </>
         ) : (
           <>
             <Link href={`/admin/spaces/${space.id}/edit`} className={buttonClasses("outline", "sm")}>
-              Editar
+              {t("admin.edit")}
             </Link>
             {space.isActive && (
               <Button size="sm" variant="outline" onClick={() => setConfirming(true)}>
-                Desactivar
+                {t("admin.deactivate")}
               </Button>
             )}
           </>

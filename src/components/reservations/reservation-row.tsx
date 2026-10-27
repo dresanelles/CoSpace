@@ -1,13 +1,14 @@
 "use client";
 
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useNow } from "@/components/reservations/use-now";
 import { Button } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
-import { formatPrice, typeColor } from "@/components/ui/space-card";
+import { formatPrice, typeColor } from "@/components/ui/space-meta";
 import { StatusBadge } from "@/components/ui/tag";
+import { dateLocales } from "@/i18n/date-locale";
 import { cn } from "@/lib/cn";
 import type { ReservationDTO } from "@/types/api";
 
@@ -19,6 +20,8 @@ interface ReservationRowProps {
 }
 
 export function ReservationRow({ reservation, onCancel }: ReservationRowProps) {
+  const t = useTranslations("dashboard");
+  const locale = useLocale();
   const now = useNow();
   const [confirming, setConfirming] = useState<boolean>(false);
   const [pending, setPending] = useState<boolean>(false);
@@ -46,7 +49,7 @@ export function ReservationRow({ reservation, onCancel }: ReservationRowProps) {
       <div className={cn(cancelled && "text-mute")}>
         <p className="font-bold">{reservation.space.name}</p>
         <p className="mt-0.5 font-label text-sm text-mute">
-          <span className="capitalize">{format(start, "EEE d MMM", { locale: es })}</span>
+          <span className="capitalize">{format(start, "EEE d MMM", { locale: dateLocales[locale] })}</span>
           {" · "}
           {format(start, "HH:mm")} – {format(end, "HH:mm")}
         </p>
@@ -54,15 +57,15 @@ export function ReservationRow({ reservation, onCancel }: ReservationRowProps) {
       <p className="col-start-2 font-label text-[15px] font-medium md:col-start-auto">
         {formatPrice(reservation.totalPrice)}
       </p>
-      <StatusBadge status={reservation.status} label={cancelled ? "Cancelada" : "Confirmada"} />
+      <StatusBadge status={reservation.status} label={cancelled ? t("cancelled") : t("confirmed")} />
       <div className="col-span-2 flex items-center gap-2 md:col-span-1 md:justify-end">
         {confirming ? (
           <>
             <Button size="sm" disabled={pending} onClick={confirmCancel}>
-              {pending ? "Cancelando…" : "Sí, cancelar"}
+              {pending ? t("cancelling") : t("confirmCancel")}
             </Button>
             <Button size="sm" variant="outline" disabled={pending} onClick={() => setConfirming(false)}>
-              No
+              {t("no")}
             </Button>
           </>
         ) : (
@@ -71,10 +74,10 @@ export function ReservationRow({ reservation, onCancel }: ReservationRowProps) {
               size="sm"
               variant="outline"
               disabled={!canCancel}
-              title={canCancel ? undefined : "Solo puedes cancelar hasta 2 h antes"}
+              title={canCancel ? undefined : t("tooLate")}
               onClick={() => setConfirming(true)}
             >
-              Cancelar
+              {t("cancel")}
             </Button>
           )
         )}

@@ -1,37 +1,42 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
-import { spaceSchema, toFieldErrors, type FieldErrors } from "@/components/admin/space-schema";
+import { spaceSchema } from "@/components/admin/space-schema";
 import { Button, buttonClasses } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { SelectField } from "@/components/ui/select-field";
 import { TextareaField } from "@/components/ui/textarea-field";
-import { ApiError } from "@/mocks/api-error";
+import { useApiErrorMessage } from "@/i18n/use-api-error";
+import { toFieldErrors, type FieldErrors } from "@/i18n/validation";
 import type { CreateSpaceInput, SpaceDTO } from "@/types/api";
-
-const typeOptions = [
-  { value: "", label: "Elige un tipo…" },
-  { value: "desk", label: "Escritorio" },
-  { value: "meeting_room", label: "Sala de reuniones" },
-  { value: "cabin", label: "Cabina" },
-];
 
 interface SpaceFormProps {
   /** Si viene, el formulario edita ese espacio; si no, crea uno nuevo. */
   space?: SpaceDTO;
-  submitLabel: string;
   onSubmit: (input: CreateSpaceInput) => Promise<void>;
 }
 
-export function SpaceForm({ space, submitLabel, onSubmit }: SpaceFormProps) {
+export function SpaceForm({ space, onSubmit }: SpaceFormProps) {
+  const t = useTranslations("admin.form");
+  const tv = useTranslations("validation");
+  const tc = useTranslations("common");
+  const apiErrorMessage = useApiErrorMessage();
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [formError, setFormError] = useState<string | null>(null);
+  const [failure, setFailure] = useState<{ error: unknown } | null>(null);
   const [pending, setPending] = useState<boolean>(false);
+
+  const typeOptions = [
+    { value: "", label: t("chooseType") },
+    { value: "desk", label: t("desk") },
+    { value: "meeting_room", label: t("meeting_room") },
+    { value: "cabin", label: t("cabin") },
+  ];
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
-    setFormError(null);
+    setFailure(null);
 
     const parsed = spaceSchema.safeParse(Object.fromEntries(new FormData(event.currentTarget)));
     if (!parsed.success) {
@@ -44,43 +49,48 @@ export function SpaceForm({ space, submitLabel, onSubmit }: SpaceFormProps) {
     try {
       await onSubmit(parsed.data);
     } catch (error) {
-      setFormError(error instanceof ApiError ? error.message : "Algo salió mal. Inténtalo de nuevo.");
+      setFailure({ error });
       setPending(false);
     }
   }
 
+  const error = (field: string): string | undefined => {
+    const key = errors[field];
+    return key ? tv(key) : undefined;
+  };
+
   return (
     <form method="post" onSubmit={handleSubmit} noValidate className="grid max-w-2xl gap-4 md:grid-cols-2">
-      {formError && (
+      {failure && (
         <p role="alert" className="rounded-lg bg-pink px-3 py-2 text-sm text-on-pastel md:col-span-2">
-          {formError}
+          {apiErrorMessage(failure.error)}
         </p>
       )}
       <div className="md:col-span-2">
-        <Field label="Nombre" name="name" defaultValue={space?.name} error={errors.name} />
+        <Field label={t("name")} name="name" defaultValue={space?.name} error={error("name")} />
       </div>
       <div className="md:col-span-2">
-        <TextareaField label="Descripción" name="description" defaultValue={space?.description} error={errors.description} />
+        <TextareaField label={t("description")} name="description" defaultValue={space?.description} error={error("description")} />
       </div>
-      <SelectField label="Tipo" name="type" options={typeOptions} defaultValue={space?.type ?? ""} error={errors.type} />
-      <Field label="Capacidad (personas)" name="capacity" type="number" min={1} defaultValue={space?.capacity} error={errors.capacity} />
-      <Field label="Precio por hora (COP)" name="pricePerHour" type="number" min={1000} step={500} defaultValue={space?.pricePerHour} error={errors.pricePerHour} />
-      <Field label="Imagen" name="imageUrl" placeholder="/img/spaces/…  o  https://…" defaultValue={space?.imageUrl} error={errors.imageUrl} />
+      <SelectField label={t("type")} name="type" options={typeOptions} defaultValue={space?.type ?? ""} error={error("type")} />
+      <Field label={t("capacity")} name="capacity" type="number" min={1} defaultValue={space?.capacity} error={error("capacity")} />
+      <Field label={t("price")} name="pricePerHour" type="number" min={1000} step={500} defaultValue={space?.pricePerHour} error={error("pricePerHour")} />
+      <Field label={t("image")} name="imageUrl" placeholder={t("imagePlaceholder")} defaultValue={space?.imageUrl} error={error("imageUrl")} />
       <div className="md:col-span-2">
         <Field
-          label="Amenidades (separadas por coma)"
+          label={t("amenities")}
           name="amenities"
-          placeholder="WiFi 1 GB, Pantalla, Café"
+          placeholder={t("amenitiesPlaceholder")}
           defaultValue={space?.amenities.join(", ")}
-          error={errors.amenities}
+          error={error("amenities")}
         />
       </div>
       <div className="flex gap-3 md:col-span-2">
         <Button type="submit" disabled={pending}>
-          {pending ? "Guardando…" : submitLabel}
+          {pending ? t("saving") : space ? t("save") : t("create")}
         </Button>
         <Link href="/admin" className={buttonClasses("outline", "md")}>
-          Volver
+          {tc("back")}
         </Link>
       </div>
     </form>

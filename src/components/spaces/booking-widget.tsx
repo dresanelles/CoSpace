@@ -1,10 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
 import { Button } from "@/components/ui/button";
-import { formatPrice } from "@/components/ui/space-card";
+import { formatPrice } from "@/components/ui/space-meta";
 import { cn } from "@/lib/cn";
 import { getAvailability } from "@/mocks/availability";
 import type { CreateReservationInput, SpaceDTO } from "@/types/api";
@@ -31,6 +32,7 @@ const slotButton =
   "rounded-lg py-2.5 text-center font-label text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:line-through disabled:opacity-30";
 
 export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingWidgetProps) {
+  const t = useTranslations("booking");
   const [date, setDate] = useState<string>(minDate);
   const [chosenStart, setChosenStart] = useState<number | null>(null);
   const [hours, setHours] = useState<number>(1);
@@ -77,7 +79,7 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
       hours,
     };
     // Todavía no hay API: cuando exista, aquí va el POST a /api/reservations.
-    toast.success(`Reserva simulada: ${pad(start)} – ${pad(start + hours)}`, {
+    toast.success(t("simulated", { range: `${pad(start)} – ${pad(start + hours)}` }), {
       description: JSON.stringify(input),
     });
   };
@@ -86,11 +88,11 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
     <aside className="rounded-2xl bg-surface p-5 shadow-hard lg:sticky lg:top-6 lg:self-start">
       <p className="text-4xl font-extrabold">
         {formatPrice(space.pricePerHour)}{" "}
-        <small className="font-label text-sm font-medium text-mute">/ hora</small>
+        <small className="font-label text-sm font-medium text-mute">{t("perHour")}</small>
       </p>
 
       <label htmlFor="date" className="mb-1.5 mt-4 block font-label text-xs font-medium uppercase tracking-wider text-mute">
-        Fecha
+        {t("date")}
       </label>
       <input
         id="date"
@@ -103,9 +105,9 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
       />
 
       <p className="mb-1.5 mt-4 font-label text-xs font-medium uppercase tracking-wider text-mute">
-        Hora de inicio
+        {t("startTime")}
       </p>
-      <div role="group" aria-label="Hora de inicio" aria-busy={isLoading} className="grid grid-cols-7 gap-1.5">
+      <div role="group" aria-label={t("startTime")} aria-busy={isLoading} className="grid grid-cols-7 gap-1.5">
         {START_HOURS.map((hour) => (
           <button
             key={hour}
@@ -120,8 +122,8 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
         ))}
       </div>
 
-      <p className="mb-1.5 mt-4 font-label text-xs font-medium uppercase tracking-wider text-mute">Duración</p>
-      <div role="group" aria-label="Duración" className="grid grid-cols-4 gap-1.5">
+      <p className="mb-1.5 mt-4 font-label text-xs font-medium uppercase tracking-wider text-mute">{t("duration")}</p>
+      <div role="group" aria-label={t("duration")} className="grid grid-cols-4 gap-1.5">
         {DURATIONS.map((duration) => (
           <button
             key={duration}
@@ -134,7 +136,7 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
               start !== null && hours === duration ? "bg-lime text-on-pastel" : "bg-ink/10 text-ink",
             )}
           >
-            {duration} h
+            {t("hours", { hours: duration })}
           </button>
         ))}
       </div>
@@ -147,9 +149,9 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
       </div>
 
       <Button className="mt-4 w-full" disabled={start === null} onClick={reserve}>
-        Reservar
+        {t("reserve")}
       </Button>
-      <p className="mt-2.5 font-label text-xs text-mute">Cancelación gratis hasta 2 h antes.</p>
+      <p className="mt-2.5 font-label text-xs text-mute">{t("cancellationNote")}</p>
     </aside>
   );
 }

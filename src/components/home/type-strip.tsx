@@ -1,11 +1,13 @@
-import Link from "next/link";
+"use client";
+
 import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { cn } from "@/lib/cn";
 import type { SpaceType } from "@/types/api";
 
 export interface TypeStat {
   type: SpaceType;
-  label: string;
   count: number;
 }
 
@@ -17,9 +19,16 @@ const typeBg: Record<SpaceType, string> = {
 
 /** Tres bloques de color, uno por tipo de espacio; enlazan al catálogo filtrado. */
 export function TypeStrip({ stats }: { stats: TypeStat[] }) {
+  const t = useTranslations("home");
+  const labels: Record<SpaceType, string> = {
+    desk: t("desks"),
+    meeting_room: t("rooms"),
+    cabin: t("cabins"),
+  };
+
   return (
     <section className="grid md:grid-cols-3">
-      {stats.map(({ type, label, count }) => (
+      {stats.map(({ type, count }) => (
         <Link
           key={type}
           href={`/spaces?type=${type}`}
@@ -28,9 +37,9 @@ export function TypeStrip({ stats }: { stats: TypeStat[] }) {
             typeBg[type],
           )}
         >
-          <h2 className="display text-[44px]">{label}</h2>
+          <h2 className="display text-[44px]">{labels[type]}</h2>
           <span className="flex items-center gap-1 font-label text-sm font-medium">
-            {count} {count === 1 ? "espacio" : "espacios"}
+            {t("spaceCount", { count })}
             <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
           </span>
         </Link>

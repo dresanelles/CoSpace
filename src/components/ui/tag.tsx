@@ -21,7 +21,7 @@ const statusStyles: Record<ReservationStatus, string> = {
   cancelled: "bg-ink/10 text-mute line-through",
 };
 
-/** Estado de una reserva. El texto lo recibe ya traducido (i18n llega después). */
+/** Estado de una reserva. El texto lo recibe ya traducido. */
 export function StatusBadge({
   status,
   label,

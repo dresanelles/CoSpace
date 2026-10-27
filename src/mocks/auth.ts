@@ -1,16 +1,5 @@
-import type { ApiErrorBody, LoginInput, RegisterInput, UserDTO } from "@/types/api";
-
-/** Error de la API con el formato del SRS §10, para que la UI lo trate igual que el real. */
-export class ApiError extends Error {
-  readonly status: number;
-  readonly body: ApiErrorBody;
-
-  constructor(status: number, body: ApiErrorBody) {
-    super(body.error.message);
-    this.status = status;
-    this.body = body;
-  }
-}
+import { ApiError } from "@/mocks/api-error";
+import type { LoginInput, RegisterInput, UserDTO } from "@/types/api";
 
 const delay = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 

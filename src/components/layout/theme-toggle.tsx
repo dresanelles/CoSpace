@@ -1,6 +1,7 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useSyncExternalStore } from "react";
 import { cn } from "@/lib/cn";
@@ -14,6 +15,7 @@ const subscribe = (): (() => void) => () => {};
  */
 export function ThemeToggle({ className }: { className?: string }) {
   const mounted = useSyncExternalStore(subscribe, () => true, () => false);
+  const t = useTranslations("theme");
   const { resolvedTheme, setTheme } = useTheme();
   // Antes de montar, siempre "claro": coincide con lo que renderizó el servidor.
   const isDark = mounted && resolvedTheme === "dark";
@@ -22,7 +24,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+      aria-label={isDark ? t("toLight") : t("toDark")}
       className={cn(
         "inline-flex size-9 items-center justify-center rounded-full bg-ink/10 transition-transform hover:-rotate-12",
         className,
