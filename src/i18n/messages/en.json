@@ -81,7 +81,13 @@
     "haveAccount": "Already have an account?",
     "signIn": "Log in",
     "welcomeBack": "Welcome back, {name}",
-    "accountCreated": "Account created. Welcome, {name}"
+    "accountCreated": "Account created. Welcome, {name}",
+    "showcaseLoginTitle": "Welcome",
+    "showcaseLoginAccent": "back",
+    "showcaseLoginText": "Log in and book your next coworking hour.",
+    "showcaseRegisterTitle": "Your first",
+    "showcaseRegisterAccent": "booking",
+    "showcaseRegisterText": "Create your account and book desks, rooms and booths by the hour."
   },
   "dashboard": {
     "title": "My",

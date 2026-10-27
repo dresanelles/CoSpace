@@ -10,7 +10,7 @@ export function Hero() {
   const t = useTranslations("home");
 
   return (
-    <section className="grid gap-8 px-5 pb-10 pt-10 md:grid-cols-[1.25fr_1fr] md:px-7 md:pt-12">
+    <section className="mx-auto w-full max-w-[1440px] grid gap-8 px-5 pb-10 pt-10 md:grid-cols-[1.25fr_1fr] md:px-7 md:pt-12">
       <div className="relative">
         <h1 className="display text-[clamp(52px,9.2vw,118px)]">
           {t("line1")}

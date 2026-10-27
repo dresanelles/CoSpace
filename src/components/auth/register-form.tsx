@@ -48,12 +48,12 @@ export function RegisterForm() {
   const passwordError = errors.password && tv(errors.password);
 
   return (
-    <form method="post" onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+    <form method="post" onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       <FormAlert message={failure ? apiErrorMessage(failure.error) : null} />
       <Field label={t("name")} name="name" autoComplete="name" error={nameError} />
       <Field label={t("email")} name="email" type="email" autoComplete="email" placeholder={t("emailPlaceholder")} error={emailError} />
       <Field label={t("password")} name="password" type="password" autoComplete="new-password" error={passwordError} />
-      <Button type="submit" disabled={pending}>
+      <Button type="submit" size="md" className="mt-2 w-full" disabled={pending}>
         {pending ? t("registering") : t("registerSubmit")}
       </Button>
     </form>

@@ -8,9 +8,9 @@ export default function RegisterPage() {
   const t = useTranslations("auth");
 
   return (
-    <div className="flex flex-col gap-5">
-      <h1 className="display text-4xl">
-        {t("registerTitle")} <span className="accent">{t("registerAccent")}</span>
+    <div className="flex flex-col gap-7">
+      <h1 className="display text-5xl md:text-6xl">
+        {t("registerTitle")} <span className="accent text-6xl md:text-7xl">{t("registerAccent")}</span>
       </h1>
       <RegisterForm />
       <p className="text-sm text-mute">

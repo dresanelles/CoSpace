@@ -19,7 +19,7 @@ export function SpaceDetailView({ space, minDate, maxDate, currentHour }: SpaceD
   const t = useTranslations();
 
   return (
-    <div className="px-5 py-8 md:px-7">
+    <div className="mx-auto w-full max-w-[1440px] px-5 py-8 md:px-7">
       <Link href="/spaces" className="mb-6 inline-flex items-center gap-1.5 text-sm">
         <ArrowLeft className="size-4" /> {t("common.spaces")}
       </Link>
