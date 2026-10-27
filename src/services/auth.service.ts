@@ -10,7 +10,7 @@ import {
 } from "@/lib/auth/jwt";
 import { hashPassword, verifyPassword } from "@/lib/auth/password";
 import { hashToken } from "@/lib/auth/token-hash";
-import { conflict, unauthorized } from "@/lib/errors";
+import { AppError, conflict, unauthorized } from "@/lib/errors";
 import type { LoginBody, RegisterBody } from "@/lib/validation/auth";
 
 export interface SessionTokens {
@@ -87,7 +87,7 @@ export async function login(input: LoginBody): Promise<AuthResult> {
   const validPassword = await verifyPassword(input.password, hash);
 
   if (!user || !validPassword) {
-    throw unauthorized("Correo o contraseña incorrectos");
+    throw new AppError(401, "INVALID_CREDENTIALS", "Correo o contraseña incorrectos");
   }
   return { user, tokens: await createSession(user) };
 }
