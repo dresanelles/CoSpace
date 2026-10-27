@@ -61,3 +61,8 @@ export async function parseBody<S extends ZodType>(
   }
   return schema.parse(raw);
 }
+
+
+export function parseQuery<S extends ZodType>(request: Request, schema: S): z.infer<S> {
+  return schema.parse(Object.fromEntries(new URL(request.url).searchParams));
+}
