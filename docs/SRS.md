@@ -191,6 +191,13 @@ Patrón interno: **route handler → servicio → ORM**. Los handlers solo valid
 
 Layouts: root layout + uno por route group con diseño propio.
 
+**[DECISIÓN] Modelo de renderizado clásico.** La plantilla de Next 16.4 activa por defecto `cacheComponents` y `partialPrefetching`; se **desactivaron** en `next.config.ts`. Con `cacheComponents` el contenido dinámico exige `<Suspense>` y deja de existir `export const dynamic`, lo que complica explicar SSG/SSR/CSR con los términos del enunciado. Con el modelo clásico:
+- **SSG** (Home): página estática, sin datos por petición.
+- **SSR** (catálogo y detalle): `export const dynamic = "force-dynamic"` para renderizar en cada petición.
+- **CSR** (dashboard): componente cliente (`"use client"`) que carga los datos con `swr` desde `/api/reservations`.
+
+Antes de escribir código de Next, consultar la documentación incluida en `node_modules/next/dist/docs/` (ver `AGENTS.md`).
+
 ## 9. Modelo de datos
 
 Propuesta inicial (Drizzle). Dinero en pesos colombianos como entero (sin decimales).
