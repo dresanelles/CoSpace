@@ -7,7 +7,7 @@ export function Tag({ children, className }: { children: ReactNode; className?: 
   return (
     <span
       className={cn(
-        "inline-block rounded-full bg-ink/10 px-2.5 py-0.5 font-mono text-[11px] uppercase",
+        "inline-block rounded-full bg-ink/10 px-2.5 py-1 font-label text-xs font-medium uppercase tracking-wide",
         className,
       )}
     >
@@ -21,7 +21,7 @@ const statusStyles: Record<ReservationStatus, string> = {
   cancelled: "bg-ink/10 text-mute line-through",
 };
 
-/** Estado de una reserva. El texto lo recibe ya traducido (i18n llega después). */
+/** Estado de una reserva. El texto lo recibe ya traducido. */
 export function StatusBadge({
   status,
   label,
@@ -32,7 +32,7 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "w-max rounded-full px-2.5 py-1 font-mono text-[11px] uppercase",
+        "w-max rounded-full px-2.5 py-1 font-label text-xs font-medium uppercase tracking-wide",
         statusStyles[status],
       )}
     >

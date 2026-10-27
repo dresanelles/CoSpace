@@ -1,16 +1,17 @@
-import { StatusBadge } from "@/components/ui/tag";
+"use client";
 
-// Placeholder; el dashboard CSR real llega en feat/dashboard.
+import { useTranslations } from "next-intl";
+import { ReservationList } from "@/components/reservations/reservation-list";
+
 export default function DashboardPage() {
+  const t = useTranslations("dashboard");
+
   return (
     <section className="px-5 py-8 md:px-7">
-      <h1 className="display text-6xl">
-        Mis <span className="accent">reservas</span>
+      <h1 className="display text-5xl md:text-7xl">
+        {t("title")} <span className="accent text-6xl md:text-8xl">{t("accent")}</span>
       </h1>
-      <div className="mt-6 flex gap-3">
-        <StatusBadge status="confirmed" label="Confirmada" />
-        <StatusBadge status="cancelled" label="Cancelada" />
-      </div>
+      <ReservationList />
     </section>
   );
 }
