@@ -41,7 +41,7 @@ Cómo debe actuar la IA en este repositorio:
 - Repositorio público: https://github.com/dresanelles/CoSpace.git
 
 Ramas previstas (una por bloque, ver §14):
-`feat/project-setup` · `feat/db-schema-seed` · `feat/auth-api` · `feat/spaces-api` · `feat/reservations-api` · `feat/route-protection` · `feat/ui-foundation` · `feat/public-pages` · `feat/auth-pages` · `feat/dashboard` · `feat/admin-panel` · `feat/i18n` · `feat/docker-deploy-readme` · (extras) `feat/tests-ci`
+`feat/project-setup` · `feat/db-schema-seed` · `feat/auth-api` · `feat/spaces-api` · `feat/reservations-api` · `feat/route-protection` · `feat/ui-foundation` · `feat/typography` · `feat/public-pages` · `feat/auth-pages` · `feat/dashboard` · `feat/admin-panel` · `feat/i18n` · `feat/docker-deploy-readme` · (extras) `feat/tests-ci`
 
 ## 4. Roles
 
@@ -121,7 +121,7 @@ Todas se garantizan **en el backend** (capa de servicio), no solo en la interfaz
 | ORM | **Drizzle ORM** + `postgres` (postgres-js) + `drizzle-kit` | [DECISIÓN] |
 | Auth | `jose` (JWT) + `bcryptjs` (hash de contraseñas) | [DECISIÓN] |
 | Validación | `zod` (esquemas compartidos entre handlers y formularios) | [DECISIÓN] |
-| i18n | `next-intl` **sin routing por URL**; idioma en cookie | [DECISIÓN] |
+| i18n | `next-intl` **sin routing por URL**; idioma en cookie `NEXT_LOCALE`; textos resueltos **en el cliente** (ver §12) | [DECISIÓN] |
 | Tema claro/oscuro | `next-themes` (atributo `data-theme`) + variante `dark` de Tailwind v4 | [DECISIÓN] |
 | Estilos | Tailwind CSS v4 | [DECISIÓN] |
 | UI | `lucide-react`, `motion`, `sonner`, `date-fns`, `clsx` + `tailwind-merge`; shadcn/ui solo para Dialog, Select, Calendar | [DECISIÓN] |
@@ -170,7 +170,7 @@ Patrón interno: **route handler → servicio → ORM**. Los handlers solo valid
 │  ├─ db/{index.ts,schema.ts,seed.ts}
 │  ├─ lib/{auth,http,time,validation}/
 │  ├─ services/{auth,spaces,reservations}.service.ts
-│  ├─ i18n/{request.ts,messages/es.json,messages/en.json}
+│  ├─ i18n/{config.ts,provider.tsx,locale-store.ts,locale-switcher.tsx,messages/{es,en}.json}
 │  └─ types/
 ├─ Dockerfile
 ├─ .env.example
@@ -258,7 +258,10 @@ Para evitar dobles reservas simultáneas, crear la reserva dentro de una **trans
 
 ## 12. Internacionalización e hidratación
 
-- Español (por defecto) e inglés, con selector visible en navbar. Idioma persistido en cookie.
+- Español (por defecto) e inglés, con selector visible (ES | EN) en la navbar, la pantalla de login y el panel admin. Idioma persistido en la cookie `NEXT_LOCALE`.
+- **[DECISIÓN] Textos en el cliente.** Leer la cookie en el servidor (`cookies()`) obliga a renderizar cada página por petición y la Home dejaría de ser SSG, que el enunciado exige. Por eso el idioma se resuelve en el cliente: `I18nProvider` (`NextIntlClientProvider`) elige los mensajes con `useSyncExternalStore` leyendo la cookie. El HTML estático sale siempre en español y, al hidratar, cambia al idioma guardado sin errores de hidratación (quien usa inglés ve un parpadeo breve en la primera carga). Consecuencia: los componentes con texto son componentes de cliente, y `<title>` no se traduce.
+- Las claves de traducción están tipadas (`AppConfig` de next-intl, `src/types/next-intl.d.ts`): una clave inexistente no compila. Los mensajes de validación (zod) y los errores de la API se traducen por clave y por `code` (`errors.*`), nunca se muestra el texto del servidor.
+- Los datos que vienen de la base de datos (nombre y descripción de espacios) no se traducen.
 - **Hidratación:** al menos un componente que dependa de datos del cliente (hora local en el dashboard, por ejemplo) sin errores de hidratación (renderizar tras montar o con `useSyncExternalStore`).
 - Imágenes de espacios con `next/image` (`remotePatterns` para `images.unsplash.com`).
 
@@ -271,7 +274,7 @@ Referencia visual: [`docs/design/maqueta-cospace.html`](design/maqueta-cospace.h
 **Tipografías** (vía `next/font/google`):
 - Display: **Bricolage Grotesque** (variable, peso 800, ancho condensado, mayúsculas).
 - Acento editorial: **Instrument Serif** cursiva.
-- Etiquetas, precios, horas: **Geist Mono**.
+- Etiquetas, precios, horas: **Familjen Grotesk** (utilidad `font-label`, cifras de ancho fijo). **[DECISIÓN]** Se descartó Geist Mono: evitar el aspecto monoespaciado «de IA».
 - Notas a mano (uso mínimo, 1–2 sitios): **Caveat**.
 
 **Paleta:**
@@ -299,9 +302,11 @@ Regla clave: **el texto sobre un fondo pastel usa siempre `on-pastel`**, no `ink
 
 Implementación: tokens como variables CSS en `globals.css`, redefinidas bajo `[data-theme="dark"]`. `next-themes` con `attribute="data-theme"`, `defaultTheme="system"` y `enableSystem`; `<html suppressHydrationWarning>`. El botón del selector debe renderizarse **solo tras montar** (el servidor no conoce el tema del usuario), para no causar errores de hidratación. La maqueta incluye un botón de ejemplo.
 
-El color identifica el **tipo de espacio**. Bordes de 1,5 px en tinta, esquinas moderadas, sombra «dura» (offset sin difuminar) solo en el widget de reserva.
+El color identifica el **tipo de espacio** y se muestra en la **etiqueta** del tipo (lima, cielo, rosa), no tiñendo la foto. **[DECISIÓN]** Sin bordes de 1,5 px en tinta en ningún componente (botones, chips, campos, tarjetas, fotos, barras): la separación se logra con rellenos (`ink/10`, `surface`), espacio y, solo en listados, una línea fina `ink/15`. Esquinas moderadas, sombra «dura» (offset sin difuminar) solo en el widget de reserva.
 
-**Componentes clave:** tarjeta de espacio con precio como sticker rotado (~3°), chips de filtro, selector de hora (07–20) con horas ocupadas tachadas y duración 1–4 h limitada por las reglas, total calculado en vivo, estados de reserva como etiquetas.
+**Fotos:** se muestran tal cual, **sin filtros** de color ni grano. La armonía viene de elegir fotos luminosas, con madera, plantas y luz natural. Hay dos series: espacios (`public/img/spaces`) y personas trabajando (`public/img/people`, usadas en el collage de la Home), todas de Unsplash con licencia libre.
+
+**Componentes clave:** tarjeta de espacio con precio como sticker rotado (~3°), chips de filtro, selector de hora (07–20, cuadrícula de 7×2) con horas ocupadas tachadas, la primera hora libre preseleccionada y duración 1–4 h limitada por las reglas, total calculado en vivo, estados de reserva como etiquetas.
 
 **Evitar:** degradados morados, glassmorphism, Inter por defecto, sombras difusas, emojis como iconos, esquinas todas muy redondeadas. Movimiento sutil (entrada suave y hover con carácter).
 

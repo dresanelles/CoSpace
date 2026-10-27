@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import {
   Bricolage_Grotesque,
   Caveat,
-  Geist_Mono,
+  Familjen_Grotesk,
   Instrument_Serif,
 } from "next/font/google";
+import { Toaster } from "sonner";
+import { I18nProvider } from "@/i18n/provider";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import "./globals.css";
 
@@ -21,8 +23,8 @@ const instrumentSerif = Instrument_Serif({
   style: "italic",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const familjen = Familjen_Grotesk({
+  variable: "--font-familjen",
   subsets: ["latin"],
 });
 
@@ -43,10 +45,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="es"
       suppressHydrationWarning
-      className={`${bricolage.variable} ${instrumentSerif.variable} ${geistMono.variable} ${caveat.variable} antialiased`}
+      className={`${bricolage.variable} ${instrumentSerif.variable} ${familjen.variable} ${caveat.variable} antialiased`}
     >
       <body className="flex min-h-dvh flex-col">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <I18nProvider>{children}</I18nProvider>
+        </ThemeProvider>
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
