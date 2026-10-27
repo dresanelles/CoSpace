@@ -37,7 +37,7 @@
 
   --font-display: var(--font-bricolage), sans-serif;
   --font-serif: var(--font-instrument), serif;
-  --font-mono: var(--font-geist-mono), monospace;
+  --font-label: var(--font-instrument-sans), sans-serif;
   --font-hand: var(--font-caveat), cursive;
 
   --shadow-hard: 6px 6px 0 var(--ink);
@@ -66,6 +66,11 @@ body {
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
+}
+
+/* Etiquetas, horas y precios: cifras de ancho fijo para que las columnas alineen. */
+.font-label {
+  font-variant-numeric: tabular-nums;
 }
 
 :focus-visible {

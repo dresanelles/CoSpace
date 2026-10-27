@@ -32,7 +32,7 @@ export function SpaceCard({ space }: { space: SpaceDTO }) {
           className="h-52 rounded-xl [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-105"
         />
         {/* Sticker de precio rotado ~3° */}
-        <span className="absolute right-3 top-3 rotate-3 rounded-md bg-paper px-2.5 py-1 font-mono text-[13px] text-ink">
+        <span className="absolute right-3 top-3 rotate-3 rounded-md bg-paper px-2.5 py-1 font-label text-[13px] text-ink">
           {formatPrice(space.pricePerHour)}/h
         </span>
       </div>

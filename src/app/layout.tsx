@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import {
   Bricolage_Grotesque,
   Caveat,
-  Geist_Mono,
+  Instrument_Sans,
   Instrument_Serif,
 } from "next/font/google";
 import { Toaster } from "sonner";
@@ -22,9 +22,10 @@ const instrumentSerif = Instrument_Serif({
   style: "italic",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 const caveat = Caveat({
@@ -44,7 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="es"
       suppressHydrationWarning
-      className={`${bricolage.variable} ${instrumentSerif.variable} ${geistMono.variable} ${caveat.variable} antialiased`}
+      className={`${bricolage.variable} ${instrumentSerif.variable} ${instrumentSans.variable} ${caveat.variable} antialiased`}
     >
       <body className="flex min-h-dvh flex-col">
         <ThemeProvider>{children}</ThemeProvider>

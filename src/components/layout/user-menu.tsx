@@ -16,7 +16,7 @@ export function UserMenu({ user }: { user: UserDTO }) {
         aria-expanded={open}
         aria-haspopup="menu"
         onClick={() => setOpen((value) => !value)}
-        className="flex items-center gap-1 font-mono text-xs"
+        className="flex items-center gap-1 font-label text-xs"
       >
         {user.name.toLowerCase()}
         <ChevronDown className="size-3.5" />
