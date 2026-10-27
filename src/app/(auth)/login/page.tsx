@@ -1,16 +1,19 @@
-import { Button } from "@/components/ui/button";
-import { Field } from "@/components/ui/field";
+import Link from "next/link";
+import { LoginForm } from "@/components/auth/login-form";
 
-// Placeholder para ver el layout y los componentes; el formulario real llega en feat/auth-pages.
 export default function LoginPage() {
   return (
-    <form className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5">
       <h1 className="display text-4xl">
         Ingresar <span className="accent">ya</span>
       </h1>
-      <Field label="Correo" name="email" type="email" placeholder="tu@correo.com" />
-      <Field label="Contraseña" name="password" type="password" />
-      <Button type="submit">Ingresar</Button>
-    </form>
+      <LoginForm />
+      <p className="text-sm text-mute">
+        ¿No tienes cuenta?{" "}
+        <Link href="/register" className="font-semibold text-ink underline underline-offset-4">
+          Crea una
+        </Link>
+      </p>
+    </div>
   );
 }
