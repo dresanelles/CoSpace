@@ -21,3 +21,8 @@ export async function requireAdmin(): Promise<AccessTokenPayload> {
   }
   return session;
 }
+
+export async function getOptionalSession(): Promise<AccessTokenPayload | null> {
+  const { accessToken } = await readAuthCookies();
+  return accessToken ? verifyAccessToken(accessToken) : null;
+}
