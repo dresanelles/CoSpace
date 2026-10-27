@@ -1,13 +1,14 @@
 import Link from "next/link";
-import { Photo, type PhotoTint } from "@/components/ui/photo";
+import { Photo } from "@/components/ui/photo";
 import { Tag } from "@/components/ui/tag";
+import { cn } from "@/lib/cn";
 import type { SpaceDTO, SpaceType } from "@/types/api";
 
 // El color identifica el tipo de espacio (SRS §13).
-export const typeColor: Record<SpaceType, PhotoTint> = {
-  desk: "lime",
-  meeting_room: "sky",
-  cabin: "pink",
+export const typeColor: Record<SpaceType, string> = {
+  desk: "bg-lime",
+  meeting_room: "bg-sky",
+  cabin: "bg-pink",
 };
 
 export const typeLabel: Record<SpaceType, string> = {
@@ -27,7 +28,6 @@ export function SpaceCard({ space }: { space: SpaceDTO }) {
         <Photo
           src={space.imageUrl}
           alt={space.name}
-          tint={typeColor[space.type]}
           sizes="(min-width: 768px) 33vw, 100vw"
           className="h-52 rounded-xl [&_img]:transition-transform [&_img]:duration-300 group-hover:[&_img]:scale-105"
         />
@@ -36,7 +36,7 @@ export function SpaceCard({ space }: { space: SpaceDTO }) {
           {formatPrice(space.pricePerHour)}/h
         </span>
       </div>
-      <Tag className="mt-3">{typeLabel[space.type]}</Tag>
+      <Tag className={cn("mt-3 text-on-pastel", typeColor[space.type])}>{typeLabel[space.type]}</Tag>
       <h3 className="mb-0.5 mt-2 text-[22px] font-bold tracking-tight">{space.name}</h3>
       <p className="text-sm text-mute">
         {space.capacity} {space.capacity === 1 ? "persona" : "personas"}
