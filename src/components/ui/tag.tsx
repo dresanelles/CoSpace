@@ -7,7 +7,7 @@ export function Tag({ children, className }: { children: ReactNode; className?: 
   return (
     <span
       className={cn(
-        "inline-block rounded-full border-[1.5px] border-ink px-2.5 py-0.5 font-mono text-[11px] uppercase",
+        "inline-block rounded-full bg-ink/10 px-2.5 py-0.5 font-mono text-[11px] uppercase",
         className,
       )}
     >
@@ -17,8 +17,8 @@ export function Tag({ children, className }: { children: ReactNode; className?: 
 }
 
 const statusStyles: Record<ReservationStatus, string> = {
-  confirmed: "bg-lime text-on-pastel border-ink",
-  cancelled: "border-mute text-mute line-through",
+  confirmed: "bg-lime text-on-pastel",
+  cancelled: "bg-ink/10 text-mute line-through",
 };
 
 /** Estado de una reserva. El texto lo recibe ya traducido (i18n llega después). */
@@ -32,7 +32,7 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "w-max rounded-full border-[1.5px] px-2.5 py-1 font-mono text-[11px] uppercase",
+        "w-max rounded-full px-2.5 py-1 font-mono text-[11px] uppercase",
         statusStyles[status],
       )}
     >

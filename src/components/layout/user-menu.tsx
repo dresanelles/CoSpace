@@ -24,7 +24,7 @@ export function UserMenu({ user }: { user: UserDTO }) {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 top-full z-20 mt-3 flex w-44 flex-col rounded-xl border-[1.5px] border-ink bg-surface p-1.5 text-sm"
+          className="absolute right-0 top-full z-20 mt-3 flex w-44 flex-col rounded-xl bg-surface p-1.5 text-sm"
         >
           <Link role="menuitem" href="/dashboard" className="rounded-lg px-3 py-2 hover:bg-ink/10">
             Mis reservas

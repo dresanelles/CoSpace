@@ -12,8 +12,8 @@ export function Chip({ active = false, className, type = "button", ...props }: C
       type={type}
       aria-pressed={active}
       className={cn(
-        "rounded-full border-[1.5px] border-ink px-4 py-1.5 text-sm transition-colors",
-        active ? "bg-ink text-paper" : "bg-transparent text-ink hover:bg-ink/10",
+        "rounded-full px-4 py-1.5 text-sm transition-colors",
+        active ? "bg-ink text-paper" : "bg-ink/10 text-ink hover:bg-ink/20",
         className,
       )}
       {...props}

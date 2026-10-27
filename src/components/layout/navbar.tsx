@@ -12,7 +12,7 @@ interface NavbarProps {
 
 export function Navbar({ user }: NavbarProps) {
   return (
-    <header className="flex items-center gap-4 border-b-[1.5px] border-ink px-5 py-4 md:gap-7 md:px-7">
+    <header className="flex items-center gap-4 px-5 py-4 md:gap-7 md:px-7">
       <Logo />
       <nav className="hidden items-center gap-6 text-sm sm:flex">
         <Link href="/spaces">Espacios</Link>

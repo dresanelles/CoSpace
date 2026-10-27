@@ -24,8 +24,8 @@ export function Field({ label, error, id, className, ...props }: FieldProps) {
         aria-invalid={error ? true : undefined}
         aria-describedby={errorId}
         className={cn(
-          "rounded-[10px] border-[1.5px] border-ink bg-surface px-3 py-2.5 text-[15px] text-ink placeholder:text-mute",
-          error && "border-dashed",
+          "rounded-[10px] bg-surface px-3 py-2.5 text-[15px] text-ink placeholder:text-mute",
+          error && "ring-2 ring-pink",
           className,
         )}
         {...props}

@@ -10,11 +10,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] border-ink font-semibold transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0";
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0";
 
 const variants: Record<Variant, string> = {
   solid: "bg-ink text-paper",
-  outline: "bg-transparent text-ink",
+  outline: "bg-ink/10 text-ink",
 };
 
 const sizes: Record<Size, string> = {

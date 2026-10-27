@@ -7,7 +7,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     <main className="relative flex flex-1 flex-col items-center justify-center gap-8 px-5 py-12">
       <ThemeToggle className="absolute right-5 top-5" />
       <Logo />
-      <div className="w-full max-w-sm rounded-2xl border-[1.5px] border-ink bg-surface p-6">
+      <div className="w-full max-w-sm rounded-2xl bg-surface p-6">
         {children}
       </div>
     </main>
