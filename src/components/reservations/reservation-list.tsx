@@ -9,20 +9,20 @@ import { ReservationRow } from "@/components/reservations/reservation-row";
 import { useNow } from "@/components/reservations/use-now";
 import { buttonClasses } from "@/components/ui/button";
 import { useApiErrorMessage } from "@/i18n/use-api-error";
-import { cancelReservation, getMyReservations } from "@/mocks/reservations";
+import { cancelReservationRequest, fetchMyReservations } from "@/lib/reservations-client";
 
 const MAX_ACTIVE = 3; // RN-06
 
 // CSR: los datos se piden desde el navegador con swr, no desde el servidor.
 export function ReservationList() {
-  const { data, error, isLoading, mutate } = useSWR("/api/reservations", getMyReservations);
+  const { data, error, isLoading, mutate } = useSWR("/api/reservations", fetchMyReservations);
   const t = useTranslations("dashboard");
   const apiErrorMessage = useApiErrorMessage();
   const now = useNow();
 
   async function handleCancel(id: string): Promise<void> {
     try {
-      await cancelReservation(id);
+      await cancelReservationRequest(id);
       toast.success(t("cancelledToast"));
       await mutate(); // vuelve a pedir la lista
     } catch (cause) {

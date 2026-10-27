@@ -32,14 +32,14 @@
     "highlight": "tu hora.",
     "intro": "Reserva escritorios, salas de reuniones y cabinas por horas. Sin contratos, sin vueltas.",
     "cta": "Explorar espacios",
-    "from": "desde {price}/h",
     "altTeam": "Colegas revisando un proyecto en pantalla",
     "altTable": "Equipo trabajando en una mesa compartida",
     "altLaptop": "Mujer trabajando con su laptop",
     "desks": "Escritorios",
     "rooms": "Salas",
     "cabins": "Cabinas",
-    "spaceCount": "{count, plural, one {# espacio} other {# espacios}}"
+    "note": "sin contratos",
+    "browse": "Ver espacios"
   },
   "catalog": {
     "title": "Espacios",
@@ -59,7 +59,9 @@
     "hours": "{hours} h",
     "reserve": "Reservar",
     "cancellationNote": "Cancelación gratis hasta 2 h antes.",
-    "simulated": "Reserva simulada: {range}"
+    "reserved": "Reserva confirmada: {range}",
+    "reserving": "Reservando…",
+    "loginRequired": "Inicia sesión para reservar"
   },
   "auth": {
     "email": "Correo",
@@ -159,7 +161,12 @@
     "generic": "Valor no válido",
     "emailMax": "El correo no puede superar 254 caracteres",
     "nameMax": "El nombre no puede superar 80 caracteres",
-    "passwordMax": "La contraseña no puede superar 72 caracteres"
+    "passwordMax": "La contraseña no puede superar 72 caracteres",
+    "spaceNameMax": "El nombre no puede superar 100 caracteres",
+    "descriptionMax": "La descripción no puede superar 1000 caracteres",
+    "priceMax": "Máximo $1.000.000 por hora",
+    "amenityMax": "Cada amenidad admite hasta 40 caracteres",
+    "amenitiesMax": "Máximo 10 amenidades"
   },
   "errors": {
     "INVALID_CREDENTIALS": "Correo o contraseña incorrectos",

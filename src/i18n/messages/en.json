@@ -32,14 +32,14 @@
     "highlight": "your hour.",
     "intro": "Book desks, meeting rooms and booths by the hour. No contracts, no hassle.",
     "cta": "Browse spaces",
-    "from": "from {price}/h",
     "altTeam": "Colleagues reviewing a project on a screen",
     "altTable": "Team working at a shared table",
     "altLaptop": "Woman working on her laptop",
     "desks": "Desks",
     "rooms": "Rooms",
     "cabins": "Booths",
-    "spaceCount": "{count, plural, one {# space} other {# spaces}}"
+    "note": "no contracts",
+    "browse": "Browse"
   },
   "catalog": {
     "title": "Spaces",
@@ -59,7 +59,9 @@
     "hours": "{hours} h",
     "reserve": "Book now",
     "cancellationNote": "Free cancellation up to 2 h before.",
-    "simulated": "Simulated booking: {range}"
+    "reserved": "Booking confirmed: {range}",
+    "reserving": "Booking…",
+    "loginRequired": "Log in to book"
   },
   "auth": {
     "email": "Email",
@@ -159,7 +161,12 @@
     "generic": "Invalid value",
     "emailMax": "The email can be at most 254 characters",
     "nameMax": "The name can be at most 80 characters",
-    "passwordMax": "The password can be at most 72 characters"
+    "passwordMax": "The password can be at most 72 characters",
+    "spaceNameMax": "The name can be at most 100 characters",
+    "descriptionMax": "The description can be at most 1000 characters",
+    "priceMax": "At most $1,000,000 per hour",
+    "amenityMax": "Each amenity can be at most 40 characters",
+    "amenitiesMax": "At most 10 amenities"
   },
   "errors": {
     "INVALID_CREDENTIALS": "Incorrect email or password",

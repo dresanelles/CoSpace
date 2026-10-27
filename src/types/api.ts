@@ -93,3 +93,20 @@ export interface AvailabilityDTO {
 export interface AuthResponseDTO {
   user: UserDTO;
 }
+
+/** Respuestas de la API de espacios y reservas (mismo estilo que auth: el recurso va envuelto). */
+export interface SpacesResponseDTO {
+  spaces: SpaceDTO[];
+}
+
+export interface SpaceResponseDTO {
+  space: SpaceDTO;
+}
+
+export interface ReservationsResponseDTO {
+  reservations: ReservationDTO[];
+}
+
+export interface ReservationResponseDTO {
+  reservation: ReservationDTO;
+}

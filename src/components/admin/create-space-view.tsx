@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { SpaceForm } from "@/components/admin/space-form";
-import { createSpace } from "@/mocks/admin";
+import { createSpaceRequest } from "@/lib/admin-client";
 import type { CreateSpaceInput } from "@/types/api";
 
 export function CreateSpaceView() {
@@ -12,7 +12,7 @@ export function CreateSpaceView() {
   const router = useRouter();
 
   async function handleSubmit(input: CreateSpaceInput): Promise<void> {
-    const space = await createSpace(input);
+    const space = await createSpaceRequest(input);
     toast.success(t("createdToast", { name: space.name }));
     router.push("/admin");
   }

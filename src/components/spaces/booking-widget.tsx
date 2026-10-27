@@ -1,13 +1,16 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/components/ui/space-meta";
+import { ApiError } from "@/lib/api-error";
 import { cn } from "@/lib/cn";
-import { getAvailability } from "@/mocks/availability";
+import { createReservationRequest, fetchAvailability } from "@/lib/spaces-client";
+import { useApiErrorMessage } from "@/i18n/use-api-error";
 import type { CreateReservationInput, SpaceDTO } from "@/types/api";
 
 // RN-01 / RN-02: duración 1-4 h y horario 07:00-21:00.
@@ -33,12 +36,15 @@ const slotButton =
 
 export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingWidgetProps) {
   const t = useTranslations("booking");
+  const apiErrorMessage = useApiErrorMessage();
+  const router = useRouter();
   const [date, setDate] = useState<string>(minDate);
   const [chosenStart, setChosenStart] = useState<number | null>(null);
   const [hours, setHours] = useState<number>(1);
+  const [pending, setPending] = useState<boolean>(false);
 
-  const { data, isLoading } = useSWR(["availability", space.id, date], () =>
-    getAvailability(space.id, date),
+  const { data, isLoading, mutate } = useSWR(["availability", space.id, date], () =>
+    fetchAvailability(space.id, date),
   );
   const busy = data?.busyHours ?? [];
 
@@ -71,17 +77,29 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
 
   const total = hours * space.pricePerHour; // solo informativo: el servidor lo recalcula (RN-08)
 
-  const reserve = (): void => {
+  const reserve = async (): Promise<void> => {
     if (start === null) return;
     const input: CreateReservationInput = {
       spaceId: space.id,
       startsAt: new Date(`${date}T${pad(start)}:00-05:00`).toISOString(),
       hours,
     };
-    // Todavía no hay API: cuando exista, aquí va el POST a /api/reservations.
-    toast.success(t("simulated", { range: `${pad(start)} – ${pad(start + hours)}` }), {
-      description: JSON.stringify(input),
-    });
+    setPending(true);
+    try {
+      await createReservationRequest(input);
+      toast.success(t("reserved", { range: `${pad(start)} – ${pad(start + hours)}` }));
+      setChosenStart(null);
+      await mutate(); // la hora recién reservada pasa a ocupada
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 401) {
+        toast.info(t("loginRequired"));
+        router.push("/login");
+      } else {
+        toast.error(apiErrorMessage(error));
+      }
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -148,8 +166,8 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
         <b className="text-3xl">{start === null ? "$0" : formatPrice(total)}</b>
       </div>
 
-      <Button className="mt-4 w-full" disabled={start === null} onClick={reserve}>
-        {t("reserve")}
+      <Button className="mt-4 w-full" disabled={start === null || pending} onClick={reserve}>
+        {pending ? t("reserving") : t("reserve")}
       </Button>
       <p className="mt-2.5 font-label text-xs text-mute">{t("cancellationNote")}</p>
     </aside>

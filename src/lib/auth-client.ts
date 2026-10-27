@@ -21,3 +21,7 @@ export async function fetchCurrentUser(): Promise<UserDTO> {
   const { user } = await apiFetch<AuthResponseDTO>("/api/auth/me");
   return user;
 }
+
+export async function logoutRequest(): Promise<void> {
+  await apiFetch<null>("/api/auth/logout", { method: "POST" });
+}

@@ -6,10 +6,7 @@ import Link from "next/link";
 import { cn } from "@/lib/cn";
 import type { SpaceType } from "@/types/api";
 
-export interface TypeStat {
-  type: SpaceType;
-  count: number;
-}
+const types: readonly SpaceType[] = ["desk", "meeting_room", "cabin"];
 
 const typeBg: Record<SpaceType, string> = {
   desk: "bg-lime",
@@ -18,7 +15,7 @@ const typeBg: Record<SpaceType, string> = {
 };
 
 /** Tres bloques de color, uno por tipo de espacio; enlazan al catálogo filtrado. */
-export function TypeStrip({ stats }: { stats: TypeStat[] }) {
+export function TypeStrip() {
   const t = useTranslations("home");
   const labels: Record<SpaceType, string> = {
     desk: t("desks"),
@@ -28,7 +25,7 @@ export function TypeStrip({ stats }: { stats: TypeStat[] }) {
 
   return (
     <section className="grid md:grid-cols-3">
-      {stats.map(({ type, count }) => (
+      {types.map((type) => (
         <Link
           key={type}
           href={`/spaces?type=${type}`}
@@ -39,7 +36,7 @@ export function TypeStrip({ stats }: { stats: TypeStat[] }) {
         >
           <h2 className="display text-[44px]">{labels[type]}</h2>
           <span className="flex items-center gap-1 font-label text-sm font-medium">
-            {t("spaceCount", { count })}
+            {t("browse")}
             <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
           </span>
         </Link>

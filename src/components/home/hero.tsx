@@ -5,9 +5,8 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { buttonClasses } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
-import { formatPrice } from "@/components/ui/space-meta";
 
-export function Hero({ minPrice }: { minPrice: number }) {
+export function Hero() {
   const t = useTranslations("home");
 
   return (
@@ -30,7 +29,7 @@ export function Hero({ minPrice }: { minPrice: number }) {
         </Link>
         {/* Nota a mano: uso mínimo de Caveat */}
         <span className="mt-6 block -rotate-6 font-hand text-2xl md:absolute md:bottom-2 md:left-72 md:mt-0">
-          {t("from", { price: formatPrice(minPrice) })}
+          {t("note")}
         </span>
       </div>
 

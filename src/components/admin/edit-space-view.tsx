@@ -5,16 +5,16 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import useSWR from "swr";
 import { SpaceForm } from "@/components/admin/space-form";
-import { getAdminSpace, updateSpace } from "@/mocks/admin";
+import { fetchAdminSpace, updateSpaceRequest } from "@/lib/admin-client";
 import type { CreateSpaceInput } from "@/types/api";
 
 export function EditSpaceView({ id }: { id: string }) {
   const t = useTranslations("admin");
   const router = useRouter();
-  const { data: space, error, isLoading } = useSWR(["/api/spaces", id], () => getAdminSpace(id));
+  const { data: space, error, isLoading } = useSWR(["/api/spaces", id], () => fetchAdminSpace(id));
 
   async function handleSubmit(input: CreateSpaceInput): Promise<void> {
-    const updated = await updateSpace(id, input);
+    const updated = await updateSpaceRequest(id, input);
     toast.success(t("updatedToast", { name: updated.name }));
     router.push("/admin");
   }

@@ -8,16 +8,16 @@ import useSWR from "swr";
 import { SpaceAdminRow } from "@/components/admin/space-admin-row";
 import { buttonClasses } from "@/components/ui/button";
 import { useApiErrorMessage } from "@/i18n/use-api-error";
-import { deactivateSpace, getAdminSpaces } from "@/mocks/admin";
+import { deactivateSpaceRequest, fetchAdminSpaces } from "@/lib/admin-client";
 
 export function SpaceAdminList() {
   const t = useTranslations("admin");
   const apiErrorMessage = useApiErrorMessage();
-  const { data, error, isLoading, mutate } = useSWR("/api/spaces?all=1", getAdminSpaces);
+  const { data, error, isLoading, mutate } = useSWR("/api/spaces?includeInactive=true", fetchAdminSpaces);
 
   async function handleDeactivate(id: string): Promise<void> {
     try {
-      await deactivateSpace(id);
+      await deactivateSpaceRequest(id);
       toast.success(t("deactivatedToast"));
       await mutate();
     } catch (cause) {
