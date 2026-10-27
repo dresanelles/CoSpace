@@ -63,7 +63,7 @@ export function ReservationList() {
       )}
 
       {data && data.length > 0 && (
-        <ul className="border-t border-ink/15">
+        <ul className="max-w-5xl border-t border-ink/15">
           {data.map((reservation) => (
             <ReservationRow key={reservation.id} reservation={reservation} onCancel={handleCancel} />
           ))}

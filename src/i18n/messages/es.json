@@ -18,9 +18,6 @@
   "language": {
     "label": "Idioma"
   },
-  "footer": {
-    "madeIn": "hecho en Colombia"
-  },
   "spaceType": {
     "desk": "Escritorio",
     "meeting_room": "Sala",
@@ -91,7 +88,13 @@
     "haveAccount": "¿Ya tienes cuenta?",
     "signIn": "Ingresa",
     "welcomeBack": "Hola de nuevo, {name}",
-    "accountCreated": "Cuenta creada. Bienvenido, {name}"
+    "accountCreated": "Cuenta creada. Bienvenido, {name}",
+    "showcaseLoginTitle": "Bienvenido",
+    "showcaseLoginAccent": "de vuelta",
+    "showcaseLoginText": "Entra y reserva tu próxima hora de coworking.",
+    "showcaseRegisterTitle": "Tu primera",
+    "showcaseRegisterAccent": "reserva",
+    "showcaseRegisterText": "Crea tu cuenta y reserva escritorios, salas y cabinas por horas."
   },
   "dashboard": {
     "title": "Mis",

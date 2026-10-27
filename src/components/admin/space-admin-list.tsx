@@ -28,7 +28,7 @@ export function SpaceAdminList() {
 
   return (
     <>
-      <div className="mb-6 mt-4 flex items-center justify-between gap-4">
+      <div className="mb-6 mt-4 flex max-w-5xl items-center justify-between gap-4">
         <p className="font-label text-sm text-mute">
           {data ? t("activeCount", { active: data.filter((space) => space.isActive).length, total: data.length }) : " "}
         </p>
@@ -52,7 +52,7 @@ export function SpaceAdminList() {
       )}
 
       {data && (
-        <ul className="border-t border-ink/15">
+        <ul className="max-w-5xl border-t border-ink/15">
           {data.map((space) => (
             <SpaceAdminRow key={space.id} space={space} onDeactivate={handleDeactivate} />
           ))}

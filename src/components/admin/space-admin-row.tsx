@@ -28,7 +28,7 @@ export function SpaceAdminRow({ space, onDeactivate }: SpaceAdminRowProps) {
   }
 
   return (
-    <li className="grid grid-cols-[56px_1fr] items-center gap-x-4 gap-y-3 border-b border-ink/15 py-4 md:grid-cols-[56px_1.6fr_1fr_110px_auto] md:gap-4">
+    <li className="grid grid-cols-[56px_1fr] items-center gap-x-4 gap-y-3 border-b border-ink/15 py-4 md:grid-cols-[56px_1.6fr_1fr_110px_220px] md:gap-4">
       <Photo
         src={space.imageUrl}
         alt=""
