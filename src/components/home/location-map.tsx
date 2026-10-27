@@ -4,12 +4,14 @@ import { ArrowUpRight, Clock, MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { buttonClasses } from "@/components/ui/button";
 
-// Ubicación simulada de CoSpace. Se busca por dirección: Google la geolocaliza sin clave de API.
-const ADDRESS = "Carrera 53 #90-40, Barranquilla, Atlántico, Colombia";
-const query = encodeURIComponent(ADDRESS);
+// Ubicación simulada de CoSpace: cruce de la Carrera 53 con la Calle 90, Barranquilla (dato de OpenStreetMap).
+// Se usan coordenadas y no el texto de la dirección: Google leía "#90-40" como número de casa y
+// colocaba el pin cerca de la calle 79.
+const LAT = 11.0110504;
+const LON = -74.8199523;
 
-const embedUrl = `https://www.google.com/maps?q=${query}&z=17&output=embed`;
-const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+const embedUrl = `https://www.google.com/maps?q=${LAT},${LON}&z=17&output=embed`;
+const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${LAT},${LON}`;
 
 export function LocationMap() {
   const t = useTranslations("home.location");
