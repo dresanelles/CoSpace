@@ -27,7 +27,7 @@ export default async function SpacesPage({ searchParams }: PageProps<"/spaces">)
         <TypeFilter active={type} />
       </div>
       {spaces.length === 0 ? (
-        <p className="font-mono text-sm text-mute">No hay espacios de este tipo por ahora.</p>
+        <p className="font-label text-sm text-mute">No hay espacios de este tipo por ahora.</p>
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {spaces.map((space) => (
