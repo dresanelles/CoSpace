@@ -5,6 +5,7 @@ import {
   Familjen_Grotesk,
   Instrument_Serif,
 } from "next/font/google";
+import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import "./globals.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-dvh flex-col">
         <ThemeProvider>{children}</ThemeProvider>
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
