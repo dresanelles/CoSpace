@@ -32,7 +32,7 @@ const slotButton =
 
 export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingWidgetProps) {
   const [date, setDate] = useState<string>(minDate);
-  const [start, setStart] = useState<number | null>(null);
+  const [chosenStart, setChosenStart] = useState<number | null>(null);
   const [hours, setHours] = useState<number>(1);
 
   const { data, isLoading } = useSWR(["availability", space.id, date], () =>
@@ -42,6 +42,9 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
 
   const isStartDisabled = (hour: number): boolean =>
     isLoading || busy.includes(hour) || (date === minDate && hour <= currentHour);
+
+  // Si el usuario no ha elegido, se propone la primera hora libre (así el widget nace "vivo").
+  const start: number | null = chosenStart ?? START_HOURS.find((hour) => !isStartDisabled(hour)) ?? null;
 
   // Mayor duración posible desde `from`: sin pasar de las 21:00 ni pisar una hora ocupada.
   const maxDurationFrom = (from: number): number => {
@@ -55,13 +58,13 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
   };
 
   const selectStart = (hour: number): void => {
-    setStart(hour);
+    setChosenStart(hour);
     setHours((current) => Math.min(current, maxDurationFrom(hour)));
   };
 
   const changeDate = (value: string): void => {
     setDate(value);
-    setStart(null); // las horas ocupadas cambian con el día
+    setChosenStart(null); // las horas ocupadas cambian con el día
   };
 
   const total = hours * space.pricePerHour; // solo informativo: el servidor lo recalcula (RN-08)
