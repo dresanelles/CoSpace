@@ -1,4 +1,4 @@
-import type { SpaceDTO, UserDTO } from "@/types/api";
+import type { SpaceDTO, SpaceType, UserDTO } from "@/types/api";
 
 // Datos de ejemplo que cumplen el contrato de src/types/api.ts.
 // Cuando exista la API real, solo cambia el cuerpo de estas funciones por un fetch.
@@ -66,8 +66,11 @@ const spaces: SpaceDTO[] = [
   },
 ];
 
-export async function getSpaces(): Promise<SpaceDTO[]> {
-  return spaces;
+/** Espacios activos (RN-12), opcionalmente filtrados por tipo (RF-05). */
+export async function getSpaces(type?: SpaceType): Promise<SpaceDTO[]> {
+  return spaces.filter(
+    (space) => space.isActive && (type === undefined || space.type === type),
+  );
 }
 
 export async function getSpaceById(id: string): Promise<SpaceDTO | null> {
