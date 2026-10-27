@@ -1,5 +1,5 @@
-import type { User } from "@/db/schema";
-import type { UserDTO } from "@/types/api";
+import type { Space, User } from "@/db/schema";
+import type { SpaceDTO, UserDTO } from "@/types/api";
 
 export function toUserDTO(user: User): UserDTO {
   return {
@@ -9,4 +9,8 @@ export function toUserDTO(user: User): UserDTO {
     role: user.role,
     createdAt: user.createdAt.toISOString(),
   };
+}
+
+export function toSpaceDTO(space: Space): SpaceDTO {
+  return { ...space, createdAt: space.createdAt.toISOString() };
 }
