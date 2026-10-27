@@ -164,12 +164,24 @@
   "errors": {
     "INVALID_CREDENTIALS": "Correo o contraseña incorrectos",
     "EMAIL_TAKEN": "Ya existe una cuenta con ese correo",
-    "CANCELLATION_TOO_LATE": "Solo puedes cancelar hasta 2 horas antes del inicio",
     "NOT_FOUND": "El recurso no existe",
     "SPACE_HAS_FUTURE_RESERVATIONS": "No se puede desactivar: tiene reservas futuras confirmadas",
     "NETWORK_ERROR": "No se pudo conectar con el servidor. Revisa tu conexión.",
     "VALIDATION_ERROR": "Revisa los datos del formulario",
     "UNAUTHORIZED": "Debes iniciar sesión",
-    "INTERNAL_ERROR": "Error interno del servidor. Inténtalo más tarde."
+    "INTERNAL_ERROR": "Error interno del servidor. Inténtalo más tarde.",
+    "INVALID_JSON": "La solicitud no es válida",
+    "FORBIDDEN": "No tienes permiso para hacer esto",
+    "INVALID_DURATION": "La duración debe ser de 1 a 4 horas completas",
+    "INVALID_START_TIME": "La hora de inicio debe ser en punto",
+    "OUTSIDE_BUSINESS_HOURS": "Solo se puede reservar entre las 07:00 y las 21:00",
+    "RESERVATION_IN_PAST": "No puedes reservar en el pasado",
+    "TOO_FAR_AHEAD": "Solo puedes reservar con hasta 30 días de anticipación",
+    "SPACE_INACTIVE": "Este espacio está desactivado",
+    "SPACE_UNAVAILABLE": "El espacio ya está reservado en ese horario",
+    "USER_OVERLAP": "Ya tienes otra reserva en ese horario",
+    "RESERVATION_LIMIT_REACHED": "Alcanzaste el máximo de 3 reservas futuras",
+    "ALREADY_CANCELLED": "Esta reserva ya estaba cancelada",
+    "CANCELLATION_WINDOW_CLOSED": "Solo puedes cancelar hasta 2 horas antes del inicio"
   }
 }

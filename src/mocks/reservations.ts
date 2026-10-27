@@ -69,7 +69,7 @@ export async function cancelReservation(id: string): Promise<ReservationDTO> {
   if (new Date(target.startsAt).getTime() - Date.now() < MIN_CANCEL_NOTICE_HOURS * HOUR_MS) {
     throw new ApiError(409, {
       error: {
-        code: "CANCELLATION_TOO_LATE",
+        code: "CANCELLATION_WINDOW_CLOSED",
         message: "Solo puedes cancelar hasta 2 horas antes del inicio",
       },
     });

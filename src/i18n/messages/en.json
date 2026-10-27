@@ -164,12 +164,24 @@
   "errors": {
     "INVALID_CREDENTIALS": "Incorrect email or password",
     "EMAIL_TAKEN": "An account with that email already exists",
-    "CANCELLATION_TOO_LATE": "You can only cancel up to 2 hours before the start",
     "NOT_FOUND": "The resource does not exist",
     "SPACE_HAS_FUTURE_RESERVATIONS": "It can't be deactivated: it has confirmed future bookings",
     "NETWORK_ERROR": "Couldn't reach the server. Check your connection.",
     "VALIDATION_ERROR": "Check the form data",
     "UNAUTHORIZED": "You must log in",
-    "INTERNAL_ERROR": "Internal server error. Please try again later."
+    "INTERNAL_ERROR": "Internal server error. Please try again later.",
+    "INVALID_JSON": "The request is not valid",
+    "FORBIDDEN": "You don't have permission to do this",
+    "INVALID_DURATION": "The duration must be 1 to 4 whole hours",
+    "INVALID_START_TIME": "The start time must be on the hour",
+    "OUTSIDE_BUSINESS_HOURS": "You can only book between 07:00 and 21:00",
+    "RESERVATION_IN_PAST": "You can't book in the past",
+    "TOO_FAR_AHEAD": "You can only book up to 30 days ahead",
+    "SPACE_INACTIVE": "This space is deactivated",
+    "SPACE_UNAVAILABLE": "The space is already booked at that time",
+    "USER_OVERLAP": "You already have another booking at that time",
+    "RESERVATION_LIMIT_REACHED": "You've reached the maximum of 3 upcoming bookings",
+    "ALREADY_CANCELLED": "This booking was already cancelled",
+    "CANCELLATION_WINDOW_CLOSED": "You can only cancel up to 2 hours before the start"
   }
 }
