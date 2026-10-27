@@ -27,7 +27,7 @@ export function SelectField({ label, options, error, id, className, ...props }: 
         aria-invalid={error ? true : undefined}
         aria-describedby={errorId}
         className={cn(
-          "rounded-[10px] bg-surface px-3 py-2.5 text-[15px] text-ink",
+          "rounded-[10px] bg-ink/10 px-3 py-2.5 text-[15px] text-ink",
           error && "ring-2 ring-pink",
           className,
         )}

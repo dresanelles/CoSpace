@@ -7,7 +7,7 @@ export default function DashboardPage() {
   const t = useTranslations("dashboard");
 
   return (
-    <section className="px-5 py-8 md:px-7">
+    <section className="mx-auto w-full max-w-[1440px] px-5 py-8 md:px-7">
       <h1 className="display text-5xl md:text-7xl">
         {t("title")} <span className="accent text-6xl md:text-8xl">{t("accent")}</span>
       </h1>

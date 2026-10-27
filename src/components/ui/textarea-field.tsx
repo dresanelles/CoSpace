@@ -21,7 +21,7 @@ export function TextareaField({ label, error, id, className, ...props }: Textare
         aria-invalid={error ? true : undefined}
         aria-describedby={errorId}
         className={cn(
-          "resize-y rounded-[10px] bg-surface px-3 py-2.5 text-[15px] text-ink placeholder:text-mute",
+          "resize-y rounded-[10px] bg-ink/10 px-3 py-2.5 text-[15px] text-ink placeholder:text-mute",
           error && "ring-2 ring-pink",
           className,
         )}
