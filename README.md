@@ -3,7 +3,7 @@
 Plataforma fullstack de **reservas de espacios de coworking** (escritorios, salas de reuniones y cabinas) por horas. Los usuarios se registran, exploran el catálogo y reservan o cancelan sus reservas; los administradores gestionan el catálogo de espacios.
 
 - **Stack:** Next.js 16 (App Router) · TypeScript estricto · Tailwind CSS v4 · PostgreSQL en Supabase · Drizzle ORM · JWT en cookies `httpOnly` · next-intl (es/en) · modo claro/oscuro.
-- **Aplicación desplegada:** https://TU-APP.vercel.app  <!-- TODO: reemplazar por la URL real de Vercel -->
+- **Aplicación desplegada:** https://co-space-sepia.vercel.app  <!-- TODO: reemplazar por la URL real de Vercel -->
 
 ## 1. Requisitos previos
 
