@@ -39,7 +39,17 @@
     "rooms": "Salas",
     "cabins": "Cabinas",
     "note": "sin contratos",
-    "browse": "Ver espacios"
+    "browse": "Ver espacios",
+    "location": {
+      "title": "Encuéntranos",
+      "accent": "en Barranquilla",
+      "address": "Carrera 53 #90-40",
+      "city": "Barranquilla, Atlántico",
+      "hours": "Todos los días · 07:00 a 21:00",
+      "directions": "Cómo llegar",
+      "note": "¡estamos aquí!",
+      "mapTitle": "Mapa de la ubicación de CoSpace en Barranquilla"
+    }
   },
   "catalog": {
     "title": "Espacios",
