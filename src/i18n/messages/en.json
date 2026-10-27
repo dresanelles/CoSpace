@@ -156,13 +156,20 @@
     "capacityMax": "At most 100",
     "priceMin": "At least $1,000 per hour",
     "imageFormat": "Use a path (/img/...) or an https URL",
-    "generic": "Invalid value"
+    "generic": "Invalid value",
+    "emailMax": "The email can be at most 254 characters",
+    "nameMax": "The name can be at most 80 characters",
+    "passwordMax": "The password can be at most 72 characters"
   },
   "errors": {
     "INVALID_CREDENTIALS": "Incorrect email or password",
     "EMAIL_TAKEN": "An account with that email already exists",
     "CANCELLATION_TOO_LATE": "You can only cancel up to 2 hours before the start",
     "NOT_FOUND": "The resource does not exist",
-    "SPACE_HAS_FUTURE_RESERVATIONS": "It can't be deactivated: it has confirmed future bookings"
+    "SPACE_HAS_FUTURE_RESERVATIONS": "It can't be deactivated: it has confirmed future bookings",
+    "NETWORK_ERROR": "Couldn't reach the server. Check your connection.",
+    "VALIDATION_ERROR": "Check the form data",
+    "UNAUTHORIZED": "You must log in",
+    "INTERNAL_ERROR": "Internal server error. Please try again later."
   }
 }

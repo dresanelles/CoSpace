@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { useApiErrorMessage } from "@/i18n/use-api-error";
 import { toFieldErrors, type FieldErrors } from "@/i18n/validation";
-import { loginRequest } from "@/mocks/auth";
+import { loginRequest } from "@/lib/auth-client";
 
 export function LoginForm() {
   const t = useTranslations("auth");

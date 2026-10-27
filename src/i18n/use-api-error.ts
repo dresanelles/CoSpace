@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import type { Messages } from "@/i18n/messages";
 import es from "@/i18n/messages/es.json";
-import { ApiError } from "@/mocks/api-error";
+import { ApiError } from "@/lib/api-error";
 
 type ErrorCode = keyof Messages["errors"];
 

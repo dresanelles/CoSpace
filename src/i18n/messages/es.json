@@ -156,13 +156,20 @@
     "capacityMax": "Máximo 100",
     "priceMin": "Mínimo $1.000 por hora",
     "imageFormat": "Usa una ruta (/img/...) o una URL https",
-    "generic": "Valor no válido"
+    "generic": "Valor no válido",
+    "emailMax": "El correo no puede superar 254 caracteres",
+    "nameMax": "El nombre no puede superar 80 caracteres",
+    "passwordMax": "La contraseña no puede superar 72 caracteres"
   },
   "errors": {
     "INVALID_CREDENTIALS": "Correo o contraseña incorrectos",
     "EMAIL_TAKEN": "Ya existe una cuenta con ese correo",
     "CANCELLATION_TOO_LATE": "Solo puedes cancelar hasta 2 horas antes del inicio",
     "NOT_FOUND": "El recurso no existe",
-    "SPACE_HAS_FUTURE_RESERVATIONS": "No se puede desactivar: tiene reservas futuras confirmadas"
+    "SPACE_HAS_FUTURE_RESERVATIONS": "No se puede desactivar: tiene reservas futuras confirmadas",
+    "NETWORK_ERROR": "No se pudo conectar con el servidor. Revisa tu conexión.",
+    "VALIDATION_ERROR": "Revisa los datos del formulario",
+    "UNAUTHORIZED": "Debes iniciar sesión",
+    "INTERNAL_ERROR": "Error interno del servidor. Inténtalo más tarde."
   }
 }

@@ -88,3 +88,8 @@ export interface AvailabilityDTO {
   date: string; // YYYY-MM-DD
   busyHours: number[]; // horas de inicio ocupadas, 7..20
 }
+
+/** Respuesta de /api/auth/login, /register y /me. */
+export interface AuthResponseDTO {
+  user: UserDTO;
+}

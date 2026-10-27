@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { useApiErrorMessage } from "@/i18n/use-api-error";
 import { toFieldErrors, type FieldErrors } from "@/i18n/validation";
-import { registerRequest } from "@/mocks/auth";
+import { registerRequest } from "@/lib/auth-client";
 
 export function RegisterForm() {
   const t = useTranslations("auth");

@@ -1,4 +1,4 @@
-import { ApiError } from "@/mocks/api-error";
+import { ApiError } from "@/lib/api-error";
 import { getSpaces } from "@/mocks/spaces";
 import type { CreateSpaceInput, SpaceDTO, UpdateSpaceInput } from "@/types/api";
 
