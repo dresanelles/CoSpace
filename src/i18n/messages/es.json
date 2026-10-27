@@ -18,9 +18,6 @@
   "language": {
     "label": "Idioma"
   },
-  "footer": {
-    "madeIn": "hecho en Colombia"
-  },
   "spaceType": {
     "desk": "Escritorio",
     "meeting_room": "Sala",

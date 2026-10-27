@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
+import { Logo } from "@/components/layout/logo";
 import { Photo } from "@/components/ui/photo";
 import { cn } from "@/lib/cn";
 
@@ -21,7 +22,8 @@ export function AuthShowcase() {
       )}
     >
       <div>
-        <h2 className="display text-[clamp(44px,7vw,92px)]">
+        <Logo />
+        <h2 className="display mt-8 md:mt-14 text-[clamp(44px,7vw,92px)]">
           {isRegister ? t("showcaseRegisterTitle") : t("showcaseLoginTitle")}
           <br />
           <span className="accent text-[1.15em] leading-[0.9]">
