@@ -4,6 +4,7 @@ Plataforma fullstack de reservas de coworking en Next.js 16. Prueba de desempeñ
 
 **Lee primero la especificación completa:** @docs/SRS.md
 Maqueta visual: `docs/design/maqueta-cospace.html`.
+Reglas de Next.js generadas por la plantilla (docs oficiales locales en `node_modules/next/dist/docs/`): @AGENTS.md
 
 ## Reglas de trabajo (resumen)
 
