@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import {
   Bricolage_Grotesque,
   Caveat,
-  Instrument_Sans,
+  Familjen_Grotesk,
   Instrument_Serif,
 } from "next/font/google";
 import { ThemeProvider } from "@/components/layout/theme-provider";
@@ -21,10 +21,9 @@ const instrumentSerif = Instrument_Serif({
   style: "italic",
 });
 
-const instrumentSans = Instrument_Sans({
-  variable: "--font-instrument-sans",
+const familjen = Familjen_Grotesk({
+  variable: "--font-familjen",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
 });
 
 const caveat = Caveat({
@@ -44,7 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="es"
       suppressHydrationWarning
-      className={`${bricolage.variable} ${instrumentSerif.variable} ${instrumentSans.variable} ${caveat.variable} antialiased`}
+      className={`${bricolage.variable} ${instrumentSerif.variable} ${familjen.variable} ${caveat.variable} antialiased`}
     >
       <body className="flex min-h-dvh flex-col">
         <ThemeProvider>{children}</ThemeProvider>
