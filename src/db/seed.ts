@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { count, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { db } from "./index";
 import { spaces, users, type NewSpace } from "./schema";
 
@@ -14,7 +14,7 @@ const SPACES: NewSpace[] = [
     type: "desk",
     capacity: 1,
     pricePerHour: 8000,
-    imageUrl: "/img/spaces/escritorio.jpg",
+    imageUrl: "/img/spaces/escritorio-madera.jpg",
     amenities: ["Ventana", "WiFi 1 GB"],
   },
   {
@@ -23,7 +23,7 @@ const SPACES: NewSpace[] = [
     type: "desk",
     capacity: 1,
     pricePerHour: 9000,
-    imageUrl: "/img/spaces/escritorio.jpg",
+    imageUrl: "/img/spaces/escritorio-lampara.jpg",
     amenities: ["Monitor 27\"", "Silla ergonómica"],
   },
   {
@@ -32,7 +32,7 @@ const SPACES: NewSpace[] = [
     type: "desk",
     capacity: 1,
     pricePerHour: 7000,
-    imageUrl: "/img/spaces/escritorio.jpg",
+    imageUrl: "/img/spaces/escritorio-madera.jpg",
     amenities: ["Tomas USB-C", "WiFi 1 GB"],
   },
   {
@@ -50,7 +50,7 @@ const SPACES: NewSpace[] = [
     type: "meeting_room",
     capacity: 4,
     pricePerHour: 28000,
-    imageUrl: "/img/spaces/sala.jpg",
+    imageUrl: "/img/spaces/sala-luminosa.jpg",
     amenities: ["Pantalla", "Pizarra"],
   },
   {
@@ -68,7 +68,7 @@ const SPACES: NewSpace[] = [
     type: "cabin",
     capacity: 1,
     pricePerHour: 18000,
-    imageUrl: "/img/spaces/cabina.jpg",
+    imageUrl: "/img/spaces/cabina-ventana.jpg",
     amenities: ["Insonorizada", "WiFi 1 GB"],
   },
   {
@@ -77,7 +77,7 @@ const SPACES: NewSpace[] = [
     type: "cabin",
     capacity: 2,
     pricePerHour: 24000,
-    imageUrl: "/img/spaces/cabina.jpg",
+    imageUrl: "/img/spaces/cabina-ventana.jpg",
     amenities: ["Insonorizada", "Pantalla"],
   },
 ];
@@ -105,16 +105,26 @@ async function seedAdmin(): Promise<void> {
 }
 
 async function seedSpaces(): Promise<void> {
-  const rows = await db.select({ total: count() }).from(spaces);
-  const total = rows[0]?.total ?? 0;
+  const existing = await db.select({ id: spaces.id, name: spaces.name }).from(spaces);
+  const idByName = new Map<string, string>(
+    existing.map((space): [string, string] => [space.name, space.id]),
+  );
 
-  if (total > 0) {
-    console.log(`Ya hay ${total} espacios, se omite.`);
-    return;
+  const toInsert = SPACES.filter((space) => !idByName.has(space.name));
+  if (toInsert.length > 0) {
+    await db.insert(spaces).values(toInsert);
   }
 
-  await db.insert(spaces).values(SPACES);
-  console.log(`${SPACES.length} espacios creados.`);
+  for (const space of SPACES) {
+    const id = idByName.get(space.name);
+    if (id) {
+      await db.update(spaces).set({ imageUrl: space.imageUrl }).where(eq(spaces.id, id));
+    }
+  }
+
+  console.log(
+    `Espacios: ${toInsert.length} creados, ${SPACES.length - toInsert.length} actualizados.`,
+  );
 }
 
 async function main(): Promise<void> {
