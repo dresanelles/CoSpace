@@ -1,3 +1,4 @@
+import { Photo } from "@/components/ui/photo";
 import { SpaceCard } from "@/components/ui/space-card";
 import { getSpaces } from "@/mocks/spaces";
 
@@ -10,6 +11,12 @@ export default async function HomePage() {
       <h1 className="display text-6xl md:text-8xl">
         Tu escritorio, <span className="accent">tu hora.</span>
       </h1>
+      <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <Photo src="/img/people/equipo-1.jpg" alt="Equipo trabajando en una mesa compartida" tint="sky" sizes="25vw" className="aspect-[4/3] rounded-xl" />
+        <Photo src="/img/people/equipo-2.jpg" alt="Personas trabajando en escritorios de coworking" tint="lime" sizes="25vw" className="aspect-[4/3] rounded-xl" />
+        <Photo src="/img/people/equipo-3.jpg" alt="Colegas revisando un proyecto en pantalla" tint="pink" sizes="25vw" className="aspect-[4/3] rounded-xl" />
+        <Photo src="/img/people/equipo-4.jpg" alt="Mujer trabajando con su laptop" tint="lime" sizes="25vw" className="aspect-[4/3] rounded-xl" />
+      </div>
       <div className="mt-8 grid gap-5 md:grid-cols-3">
         {spaces.map((space) => (
           <SpaceCard key={space.id} space={space} />
