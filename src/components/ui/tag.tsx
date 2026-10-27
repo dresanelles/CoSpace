@@ -7,7 +7,7 @@ export function Tag({ children, className }: { children: ReactNode; className?: 
   return (
     <span
       className={cn(
-        "inline-block rounded-full bg-ink/10 px-2.5 py-0.5 font-label text-[11px] uppercase",
+        "inline-block rounded-full bg-ink/10 px-2.5 py-1 font-label text-xs font-medium uppercase tracking-wide",
         className,
       )}
     >
@@ -32,7 +32,7 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "w-max rounded-full px-2.5 py-1 font-label text-[11px] uppercase",
+        "w-max rounded-full px-2.5 py-1 font-label text-xs font-medium uppercase tracking-wide",
         statusStyles[status],
       )}
     >

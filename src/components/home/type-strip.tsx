@@ -29,7 +29,7 @@ export function TypeStrip({ stats }: { stats: TypeStat[] }) {
           )}
         >
           <h2 className="display text-[44px]">{label}</h2>
-          <span className="flex items-center gap-1 font-label text-xs">
+          <span className="flex items-center gap-1 font-label text-sm font-medium">
             {count} {count === 1 ? "espacio" : "espacios"}
             <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
           </span>

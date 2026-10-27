@@ -28,7 +28,7 @@ interface BookingWidgetProps {
 }
 
 const slotButton =
-  "rounded-lg py-2 text-center font-label text-xs transition-colors disabled:cursor-not-allowed disabled:line-through disabled:opacity-30";
+  "rounded-lg py-2.5 text-center font-label text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:line-through disabled:opacity-30";
 
 export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingWidgetProps) {
   const [date, setDate] = useState<string>(minDate);
@@ -86,10 +86,10 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
     <aside className="rounded-2xl bg-surface p-5 shadow-hard lg:sticky lg:top-6 lg:self-start">
       <p className="text-4xl font-extrabold">
         {formatPrice(space.pricePerHour)}{" "}
-        <small className="font-label text-[13px] font-medium text-mute">/ hora</small>
+        <small className="font-label text-sm font-medium text-mute">/ hora</small>
       </p>
 
-      <label htmlFor="date" className="mb-1.5 mt-4 block font-label text-[11px] uppercase tracking-wider text-mute">
+      <label htmlFor="date" className="mb-1.5 mt-4 block font-label text-xs font-medium uppercase tracking-wider text-mute">
         Fecha
       </label>
       <input
@@ -102,10 +102,10 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
         className="w-full rounded-[10px] bg-ink/10 px-3 py-2.5 text-[15px] text-ink"
       />
 
-      <p className="mb-1.5 mt-4 font-label text-[11px] uppercase tracking-wider text-mute">
+      <p className="mb-1.5 mt-4 font-label text-xs font-medium uppercase tracking-wider text-mute">
         Hora de inicio
       </p>
-      <div role="group" aria-label="Hora de inicio" aria-busy={isLoading} className="grid grid-cols-5 gap-1.5">
+      <div role="group" aria-label="Hora de inicio" aria-busy={isLoading} className="grid grid-cols-7 gap-1.5">
         {START_HOURS.map((hour) => (
           <button
             key={hour}
@@ -120,7 +120,7 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
         ))}
       </div>
 
-      <p className="mb-1.5 mt-4 font-label text-[11px] uppercase tracking-wider text-mute">Duración</p>
+      <p className="mb-1.5 mt-4 font-label text-xs font-medium uppercase tracking-wider text-mute">Duración</p>
       <div role="group" aria-label="Duración" className="grid grid-cols-4 gap-1.5">
         {DURATIONS.map((duration) => (
           <button
@@ -140,7 +140,7 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
       </div>
 
       <div className="mt-5 flex items-baseline justify-between border-t border-dashed border-ink pt-4">
-        <span className="font-label text-xs">
+        <span className="font-label text-sm font-medium">
           {start === null ? "—" : `${pad(start)} – ${pad(start + hours)}`}
         </span>
         <b className="text-3xl">{start === null ? "$0" : formatPrice(total)}</b>
@@ -149,7 +149,7 @@ export function BookingWidget({ space, minDate, maxDate, currentHour }: BookingW
       <Button className="mt-4 w-full" disabled={start === null} onClick={reserve}>
         Reservar
       </Button>
-      <p className="mt-2.5 font-label text-[11px] text-mute">Cancelación gratis hasta 2 h antes.</p>
+      <p className="mt-2.5 font-label text-xs text-mute">Cancelación gratis hasta 2 h antes.</p>
     </aside>
   );
 }
